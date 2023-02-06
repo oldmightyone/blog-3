@@ -10,6 +10,7 @@ from forms import *
 from flask_gravatar import Gravatar
 from functools import wraps
 from smtplib import SMTP
+import os
 
 app = Flask(__name__)
 app.app_context().push()
@@ -184,15 +185,15 @@ def contact():
         phone = request.form.get("phone")
         message = request.form.get("message")
 
-        my_email = "lilbotman101@gmail.com"
-        password = "urybstbdwbofzacb"
+        my_email = os.environ['bot_email']
+        password = os.environ['password']
 
         with SMTP("smtp.gmail.com") as connection:
             connection.starttls()
             connection.login(user=my_email, password=password)
             connection.sendmail(
                 from_addr=my_email,
-                to_addrs="jackie224732156@gmail.com",
+                to_addrs=os.environ['email'],
                 msg=f"Subject:Contact Request\n\nThe following user wants to contact you:\nNAME: {name}\nEMAIL: {email}"
                     f"\nPHONE: {phone}\nMESSAGE: {message}"
             )
