@@ -180,6 +180,7 @@ def about():
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
     if request.method == "POST":
+
         name = request.form.get("name")
         email = request.form.get("email")
         phone = request.form.get("phone")
