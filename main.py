@@ -185,15 +185,15 @@ def contact():
         phone = request.form.get("phone")
         message = request.form.get("message")
 
-        my_email = os.environ['bot_email']
-        password = os.environ['password']
+        my_email = os.environ.get('bot_email')
+        password = os.environ.get('password')
 
         with SMTP("smtp.gmail.com") as connection:
             connection.starttls()
             connection.login(user=my_email, password=password)
             connection.sendmail(
                 from_addr=my_email,
-                to_addrs=os.environ['email'],
+                to_addrs=os.environ.get('email'),
                 msg=f"Subject:Contact Request\n\nThe following user wants to contact you:\nNAME: {name}\nEMAIL: {email}"
                     f"\nPHONE: {phone}\nMESSAGE: {message}"
             )
